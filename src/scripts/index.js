@@ -28,6 +28,14 @@ export class Gameboard {
   }
 
 
+  #invalidCoord(posX, posY) {
+    return (
+      posX <= 0 || posX > 10 ||
+      posY <= 0 || posY > 10 ||
+      this.occupiedCoord[`${posX},${posY}`]
+    );
+  }
+
   #placeCoords(posX, posY, length, direction) {
     const shipCountInner = this.shipCount + 1;
     const shipsCoordinates = {};
@@ -38,7 +46,7 @@ export class Gameboard {
       const endCoordY = posY + length;
 
       for (posY; posY < endCoordY; posY++) {
-        if (this.occupiedCoord[`${posX},${posY}`]) return false;
+        if (this.#invalidCoord(posX, posY)) return false;
 
         shipsCoordinates[`${posX},${posY}`] = `ship${shipCountInner}`
       }
@@ -52,7 +60,7 @@ export class Gameboard {
     const endCoordX = posX + length;
 
     for (posX; posX < endCoordX; posX++) {
-      if (this.occupiedCoord[`${posX},${posY}`]) return false;
+      if (this.#invalidCoord(posX, posY)) return false;
 
       shipsCoordinates[`${posX},${posY}`] = `ship${shipCountInner}`
     }
