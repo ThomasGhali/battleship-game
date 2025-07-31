@@ -103,4 +103,11 @@ export class Gameboard {
     return 'hit';
   }
 
+  fleetCheck() {
+    for (ship of this.ships) {
+      if (!ship.sunk) return 'fleet alive'
+    }
+
+    return false;
+  }
 }
