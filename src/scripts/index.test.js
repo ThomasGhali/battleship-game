@@ -1,4 +1,6 @@
-import { Ship, Gameboard } from "./index.js";
+import Ship from './ship.js'
+import Gameboard from './gameboard.js'
+import Player from './player.js'
 
 // --- Ship Tests ---
 test("should mark ship as sunk after enough hits", () => {
