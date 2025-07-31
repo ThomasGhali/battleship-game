@@ -25,13 +25,14 @@ export class Gameboard {
     this.ships = [];
     this.shipCount = 0;
     this.occupiedCoord = {};
+    this.attacks = {}
   }
 
 
   #invalidCoord(posX, posY) {
     return (
-      posX <= 0 || posX > 10 ||
-      posY <= 0 || posY > 10 ||
+      posX < 1 || posX > 10 ||
+      posY < 1 || posY > 10 ||
       this.occupiedCoord[`${posX},${posY}`]
     );
   }
@@ -48,7 +49,7 @@ export class Gameboard {
       for (posY; posY < endCoordY; posY++) {
         if (this.#invalidCoord(posX, posY)) return false;
 
-        shipsCoordinates[`${posX},${posY}`] = `ship${shipCountInner}`
+        shipsCoordinates[`${posX},${posY}`] = shipCountInner;
       }
       
       // merging shipsCoordinates into this.occupiedCoord (mutates)
@@ -62,7 +63,7 @@ export class Gameboard {
     for (posX; posX < endCoordX; posX++) {
       if (this.#invalidCoord(posX, posY)) return false;
 
-      shipsCoordinates[`${posX},${posY}`] = `ship${shipCountInner}`
+      shipsCoordinates[`${posX},${posY}`] = shipCountInner;
     }
 
     Object.assign(this.occupiedCoord, shipsCoordinates);
@@ -79,6 +80,27 @@ export class Gameboard {
     }
 
     return false;
+  }
+
+  receiveAttack(x, y) {
+    if (x < 1 || x > 10 || y < 1 || y > 10) return false;
+
+    if (`${x},${y}` in this.attacks) return false;
+
+    if (!this.occupiedCoord[`${x},${y}`]) {
+          this.attacks[`${x},${y}`] = false;
+          
+          return 'miss';
+    }
+
+    const hitShip = this.occupiedCoord[`${x},${y}`];
+    const ship = this.ships[hitShip - 1];
+
+    this.attacks[`${x},${y}`] = hitShip;
+    ship.hit();
+    ship.isSunk();
+
+    return 'hit';
   }
 
 }
