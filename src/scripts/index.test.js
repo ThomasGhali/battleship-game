@@ -103,3 +103,11 @@ describe("Gameboard", () => {
   })
 
 })
+
+// --- Player class tests ---
+describe("Player class", () => {
+  test("", () => {
+
+  })
+  
+})
