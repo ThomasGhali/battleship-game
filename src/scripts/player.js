@@ -5,11 +5,10 @@ export default class Player {
     this.isComputer = isComputer;
     this.name = name;
     this.validMoves = [];
+    this.gameboard = new Gameboard();
 
     if (this.isComputer) {
       this.#formValidMovesArr();
-
-      return this.#makeRandomMove();
     }
   }
 
@@ -25,10 +24,22 @@ export default class Player {
     return true;
   }
 
-  #makeRandomMove() {
+  computerMove() {
     const indeces = this.validMoves.length;
-    const move = Math.floor(Math.random() * indeces);
+    const randomIndex = Math.floor(Math.random() * indeces);
+    const move = this.validMoves[randomIndex];
+
+    this.validMoves.splice(randomIndex, 1);
 
     return move;
   }
+
+  // playTurn(x, y) {
+  //   if (this.isComputer) {
+  //     return this.#makeRandomMove();
+  //   }
+
+  //   this.gameboard.
+    
+  // }
 }

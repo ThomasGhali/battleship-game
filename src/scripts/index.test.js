@@ -1,6 +1,8 @@
 import Ship from './ship.js'
 import Gameboard from './gameboard.js'
 import Player from './player.js'
+import GameFlow from './gameFlow.js'
+
 
 // --- Ship Tests ---
 test("should mark ship as sunk after enough hits", () => {
@@ -110,4 +112,61 @@ describe("Player class", () => {
 
   })
   
+})
+
+// --- Game flow module test ---
+describe("Player class", () => {
+  test("player hits computer and hit is stored in computer gamboard", () => {
+    const gameFlow = new GameFlow("thomas");
+    // placing a ship for each
+    gameFlow.opponent.gameboard.placeShip(2, 2, 3, "horizontal");
+    gameFlow.player.gameboard.placeShip(2, 2, 3, "horizontal");
+
+    // player sends a hit to computer
+    gameFlow.opponent.gameboard.receiveAttack(2, 3);
+    
+    expect(gameFlow.opponent.gameboard.attacks).toEqual({
+      '2,3' : 1
+    })
+  }) 
+
+  test("exchange attacks between player and computer hitting each other", () => {
+    const gameFlow = new GameFlow("thomas");
+    // placing a ship for each
+    gameFlow.opponent.gameboard.placeShip(2, 2, 3, "horizontal");
+    gameFlow.player.gameboard.placeShip(2, 2, 3, "horizontal");
+
+    // player sends a hit to computer
+    gameFlow.opponent.gameboard.receiveAttack(2, 3);
+    gameFlow.player.gameboard.receiveAttack(2, 4);
+    
+    expect(gameFlow.player.gameboard.attacks).toEqual({
+      '2,4' : 1
+    })
+
+    expect(gameFlow.opponent.gameboard.attacks).toEqual({
+      '2,3' : 1
+    })
+  })
+
+  // 
+  test("tests gameflow turns while exchanging attacks until one loses his ship", () => {
+    const gameFlow = new GameFlow("thomas");
+
+    // placing a ship for each
+    gameFlow.opponent.gameboard.placeShip(2, 2, 3, "horizontal");
+    gameFlow.player.gameboard.placeShip(2, 2, 3, "horizontal");
+
+    // player sends a hit to computer, computer sends automatically
+    gameFlow.attack()
+
+    expect(gameFlow.player.gameboard.attacks).toEqual({
+      '2,4' : 1
+    })
+
+    expect(gameFlow.opponent.gameboard.attacks).toEqual({
+      '2,3' : 1
+    })
+  })
+
 })
