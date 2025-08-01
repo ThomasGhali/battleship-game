@@ -1,4 +1,3 @@
-import Gameboard from "./gameboard.js";
 import Player from "./player.js";
 
 export default class GameFlow {
@@ -8,24 +7,26 @@ export default class GameFlow {
   }
 
   #playTurn(x, y, attacked) {
-    if (!attacked.gameboard.recieveAttack(x, y)) return false;
+    if (!attacked.gameboard.receiveAttack(x, y)) return false;
 
-    if (!attacked.gameboard.fleetCheck()) return 'Done';
+    if (!attacked.gameboard.fleetCheck()) return 'Game over';
 
     return "Hit"
   }
 
   async fullRound(x, y, attacked = this.opponent) {
-    if (!this.#playTurn(x, y, attacked)) return false;
+    const result = this.#playTurn(x, y, attacked);
 
-    if (attacked === this.player) return
+    if (!result) return false; // Invalid Move - player must retry
+    else if (result === "Game over") return true; // Game over - all ships sunk
+
+    if (attacked === this.player) return; // Round ended - waiting for next round
 
     await new Promise(resolve => setTimeout(resolve, 200)); // Delay before computer moves
 
     const [pcX, pcY] = this.opponent.computerMove();
 
-    this.fullRound(pcX, pcY, this.player)
+    await this.fullRound(pcX, pcY, this.player);
   }
 
-  
 }

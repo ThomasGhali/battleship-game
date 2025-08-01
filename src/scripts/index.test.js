@@ -149,24 +149,27 @@ describe("Player class", () => {
     })
   })
 
-  // 
-  test("tests gameflow turns while exchanging attacks until one loses his ship", () => {
+
+  test("player sinks computer ship", async () => {
     const gameFlow = new GameFlow("thomas");
 
     // placing a ship for each
     gameFlow.opponent.gameboard.placeShip(2, 2, 3, "horizontal");
     gameFlow.player.gameboard.placeShip(2, 2, 3, "horizontal");
 
-    // player sends a hit to computer, computer sends automatically
-    gameFlow.attack()
+    // making computer moves predictable not random for test
+    jest.spyOn(gameFlow.opponent, 'computerMove')
+      .mockReturnValueOnce([1,1])
+      .mockReturnValueOnce([1,2])
+      .mockReturnValueOnce([1,3]);
 
-    expect(gameFlow.player.gameboard.attacks).toEqual({
-      '2,4' : 1
-    })
+    // player send hits to computer, computer sends automatically
+    await gameFlow.fullRound(2,2);
+    await gameFlow.fullRound(2,3);
+    const result = await gameFlow.fullRound(2,4);
 
-    expect(gameFlow.opponent.gameboard.attacks).toEqual({
-      '2,3' : 1
-    })
+    // player wins
+    expect(result).toBe(true);
   })
 
 })
