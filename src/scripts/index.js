@@ -4,10 +4,11 @@ import Gameboard from './gameboard.js'
 import Player from './player.js'
 import GameFlow from './gameFlow.js'
 import showSplash from "./splash.js";
+import showMenu from './menu.js'
 
-document.addEventListener("DOMContentLoaded", () => {
-  showSplash();
-
+document.addEventListener("DOMContentLoaded", async () => {
+  await showSplash();
+  await showMenu();
 })
 
 //---------------------- index.js

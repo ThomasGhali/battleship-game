@@ -14,13 +14,18 @@ export default function showSplash() {
 
     splash.classList.add('active');
 
-    setTimeout(() => {
-      splash.classList.remove('active');
+    // fade-in splash
+    await new Promise(r => setTimeout(r, 500));
 
-      setTimeout(() => {
-        splash.classList.add('hidden');
-        resolve();
-      }, 1000)
-    }, 2000)
+    // keep splash for 1.5 seconds
+    await new Promise(r => setTimeout(r, 1500));
+
+    // fade-out splash
+    splash.classList.remove('active');
+
+    // wait for the fade-out and resolve the promise
+    await new Promise(r => setTimeout(r, 500));
+
+    resolve();
   })
 }

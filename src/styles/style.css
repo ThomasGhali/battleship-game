@@ -1,6 +1,8 @@
 body {
   margin: 0;
   height: 100vh;
+  background-color: #080807;
+  overflow: hidden;
 }
 
 /* =====================
@@ -8,14 +10,19 @@ body {
   =====================
 */
 .screen {
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: #080807;
   display: flex;
+  width: 100%;
   height: 100%;
   justify-content: center;
   align-items: center;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   pointer-events: none;
+  z-index: 100;
 }
 
 .active {
@@ -23,11 +30,7 @@ body {
   pointer-events: auto;
 }
 
-.hidden {
-  display: none;
-}
-
-.screen > img {
+.splash__image {
   width: 40vw;
 }
 /* =====================
@@ -35,17 +38,20 @@ body {
   =====================
 */
 
-.menu {
+#menu {
+  display: none;
   background-color: #010308;
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  height: 100%;
   min-width: 550px;
+  position: absolute;
+}
+
+#menu.active {
+  display: flex;
 }
 
 .menu__image {
-  width: max(100px ,15vw);
+  width: max(100px, 15vw);
 }
 
 .menu__options {
@@ -85,7 +91,11 @@ body {
 }
 
 .start-btn:hover {
-  background-image: rgba(0, 0, 255, 0.188);
+  background: rgba(0, 0, 255, 0.188);
+}
+
+.start-btn:active {
+  box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.219);
 }
 
 .logo-container {
