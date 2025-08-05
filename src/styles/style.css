@@ -39,11 +39,11 @@ body {
 */
 
 #menu {
-  display: none;
   background-color: #010308;
   justify-content: space-between;
   min-width: 550px;
   position: absolute;
+  z-index: 1;
 }
 
 #menu.active {
@@ -108,4 +108,17 @@ body {
 .logo {
   width: 50px;
   cursor: pointer;
+}
+
+/* =====================
+    place ships screen
+  =====================
+*/
+
+#place-ships {
+  overflow: auto;
+}
+
+.placing-board {
+   
 }

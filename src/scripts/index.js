@@ -11,39 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await showMenu();
 })
 
-//---------------------- index.js
-// import { showSplash } from './splash.js';
-// import { initMenu, showMenu } from './menu.js';
-// import { initGame, showGame } from './game.js';
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   initMenu();      // wire up menu button events
-//   initGame();      // set up your game canvas/events
-//   showSplash()     // kick things off
-//     .then(showMenu)
-//     .catch(console.error);
-// });
-
-// ------------- menu.js
-// let resolveMenu;
-// export function initMenu() {
-//   document.querySelector('#menu [data-action="start"]')
-//     .addEventListener('click', () => {
-//       // fade-out menu, then start game
-//       const menu = document.getElementById('menu');
-//       menu.classList.remove('active');
-//       setTimeout(resolveMenu, 1000);
-//     });
-// }
-
-// export function showMenu() {
-//   return new Promise(resolve => {
-//     resolveMenu = resolve;
-//     const menu = document.getElementById('menu');
-//     menu.classList.add('active');
-//   });
-// }
-
 //------------------------game.js
 //export function initGame() {
 // e.g. set up Canvas, load assets, add event handlers…

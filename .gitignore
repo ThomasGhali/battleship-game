@@ -1,3 +1,6 @@
+#custom
+src/images/assets-to-work-on/
+
 # Logs
 logs
 *.log
@@ -87,10 +90,6 @@ web_modules/
 .next
 out
 
-# Nuxt.js build / generate output
-.nuxt
-dist
-
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
@@ -127,10 +126,3 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
