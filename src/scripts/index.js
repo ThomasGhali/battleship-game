@@ -5,10 +5,13 @@ import Player from './player.js'
 import GameFlow from './gameFlow.js'
 import showSplash from "./splash.js";
 import showMenu from './menu.js'
+import { createBoard, showBoard } from './placeShips.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
   await showSplash();
   await showMenu();
+  await showBoard();
+  createBoard();
 })
 
 //------------------------game.js

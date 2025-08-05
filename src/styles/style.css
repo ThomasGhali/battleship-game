@@ -1,4 +1,4 @@
-body {
+html, body {
   margin: 0;
   height: 100vh;
   background-color: #080807;
@@ -43,11 +43,7 @@ body {
   justify-content: space-between;
   min-width: 550px;
   position: absolute;
-  z-index: 1;
-}
-
-#menu.active {
-  display: flex;
+  z-index: 3;
 }
 
 .menu__image {
@@ -116,9 +112,59 @@ body {
 */
 
 #place-ships {
+  display: flex;
+  position: absolute;
+  color: white;
+  height: 100%;
+  outline: 1px solid red;
+  margin: 20px 10px;
+  padding: 5px;
+  z-index: 2;
+}
+
+.ships-to-place {
+  outline: 1px solid red;
   overflow: auto;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.ship__details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.ship__rotate {
+  appearance: none;
+  background: transparent;
+  color: white;
+  height: 30px;
 }
 
 .placing-board {
-   
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  width: 450px;
+  height: 450px;
+  aspect-ratio: 1/1;
+  background-color: white;
+}
+
+.tile {
+  background-color: rgb(9, 44, 44);
+  outline: 1px solid white;
+}
+
+.tile:hover {
+  background-color: rgb(19, 91, 91);
+}
+
+.place-note {
+  outline: 1px solid red;
 }
