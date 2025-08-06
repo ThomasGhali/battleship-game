@@ -43,6 +43,7 @@ html, body {
   justify-content: space-between;
   min-width: 550px;
   position: absolute;
+  height: 100vh;
   z-index: 3;
 }
 
@@ -117,20 +118,57 @@ html, body {
   color: white;
   height: 100%;
   outline: 1px solid red;
-  margin: 20px 10px;
   padding: 5px;
+  margin: 5px 10px;
+  column-gap: 20px;
   z-index: 2;
+  overflow: auto;
 }
 
 .ships-to-place {
   outline: 1px solid red;
   overflow: auto;
-  height: 90vh;
+  height: max(95%, 570px);
+  min-width: 50%;
+  max-width: 624px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 10px;
+  background-color: #292929;
+  border-radius: 5px;
 }
+
+.ship {
+  height: 55%;
+  outline: 1px solid red;
+  min-width: max-content;
+}
+
+.small {
+  height: 40%;
+  padding: 0 10px
+}
+
+/* .boat {
+  width: ;
+}
+
+.submarine {
+  width: ;
+}
+
+.destroyer {
+  width: ;
+}
+
+.battleship {
+  width: ;
+}
+
+.carrier {
+  width: ;
+} */
 
 .ship__details {
   display: flex;
@@ -146,6 +184,27 @@ html, body {
   height: 30px;
 }
 
+::-webkit-scrollbar {
+  width: 7px; /* or height for horizontal */
+}
+
+/* Background of the track */
+::-webkit-scrollbar-track {
+  background: #292828;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #717171;
+  border-radius: 10px;
+}
+
+.board-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .placing-board {
   display: grid;
   grid-template-rows: repeat(10, 1fr);
@@ -153,7 +212,7 @@ html, body {
   width: 450px;
   height: 450px;
   aspect-ratio: 1/1;
-  background-color: white;
+  background-color: rgb(9, 44, 44);
 }
 
 .tile {
@@ -167,4 +226,26 @@ html, body {
 
 .place-note {
   outline: 1px solid red;
+}
+
+/* --- tablet styling */
+
+@media (max-width: 1280px) {
+  #place-ships {
+    padding: 5px;
+    margin: 5px 0px;
+    column-gap: 5px;
+  }
+  
+  .placing-board {
+    width: 350px;
+    height: 350px;
+    aspect-ratio: 1/1;
+    background-color: rgb(9, 44, 44);
+  }
+
+  .board-header {
+    font-size: 1.4rem;
+  }
+  
 }
