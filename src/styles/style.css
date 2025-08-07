@@ -116,79 +116,92 @@ html, body {
   display: flex;
   position: absolute;
   color: white;
-  height: 100%;
   outline: 1px solid red;
   padding: 5px;
   margin: 5px 10px;
   column-gap: 20px;
   z-index: 2;
-  overflow: auto;
 }
 
 .ships-to-place {
   outline: 1px solid red;
   overflow: auto;
-  height: max(95%, 570px);
-  min-width: 50%;
-  max-width: 624px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-left: 10px;
-  background-color: #292929;
-  border-radius: 5px;
+  height: 90%;
+  width: 40%;
+  min-width: 350px;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
+  justify-items: center;
 }
 
 .ship {
-  height: 55%;
-  outline: 1px solid red;
-  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  row-gap: 5px;
 }
 
-.small {
-  height: 40%;
-  padding: 0 10px
+.ship__name {
+  margin: 0px;
 }
-
-/* .boat {
-  width: ;
-}
-
-.submarine {
-  width: ;
-}
-
-.destroyer {
-  width: ;
-}
-
-.battleship {
-  width: ;
-}
-
-.carrier {
-  width: ;
-} */
 
 .ship__details {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 20px;
+  column-gap: 12px;
 }
 
 .ship__rotate {
   appearance: none;
   background: transparent;
   color: white;
-  height: 30px;
+  height: 21px;
+}
+
+.boat-ship {
+  width: 90px;
+  height: 130px;
+}
+
+.boat {
+  width: 50px;
+}
+
+.submarine-ship {
+  width: 150px;
+  height: 130px;
+}
+
+.submarine {
+  width: 100px;
+}
+
+.destroyer-ship {
+  height: 225px;
+}
+
+.destroyer {
+  width: 150px;
+}
+
+.battleship {
+  width: 200px;
+}
+
+.carrier-ship {
+  grid-area: 3 / 1 / -1 / -1;
+}
+
+.carrier {
+  width: 250px;
 }
 
 ::-webkit-scrollbar {
-  width: 7px; /* or height for horizontal */
+  width: 7px; 
+  height: 7px;;
 }
 
-/* Background of the track */
 ::-webkit-scrollbar-track {
   background: #292828;
   border-radius: 10px;
@@ -197,9 +210,11 @@ html, body {
 ::-webkit-scrollbar-thumb {
   background-color: #717171;
   border-radius: 10px;
-}
+} 
 
-.board-wrapper {
+
+
+.placing-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -228,24 +243,15 @@ html, body {
   outline: 1px solid red;
 }
 
-/* --- tablet styling */
+/* --- smaller screen style --- */
 
-@media (max-width: 1280px) {
-  #place-ships {
-    padding: 5px;
-    margin: 5px 0px;
-    column-gap: 5px;
-  }
-  
+@media (max-width: 1000px) {
   .placing-board {
-    width: 350px;
-    height: 350px;
-    aspect-ratio: 1/1;
-    background-color: rgb(9, 44, 44);
+    width: 300px;
+    height: 300px;
   }
 
   .board-header {
     font-size: 1.4rem;
   }
-  
 }
