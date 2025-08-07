@@ -116,15 +116,16 @@ html, body {
   display: flex;
   position: absolute;
   color: white;
-  outline: 1px solid red;
   padding: 5px;
   margin: 5px 10px;
   column-gap: 20px;
   z-index: 2;
+  align-items: center;
 }
 
 .ships-to-place {
-  outline: 1px solid red;
+  outline: 1px solid white;
+  border-radius: 10px;
   overflow: auto;
   height: 90%;
   width: 40%;
@@ -133,6 +134,8 @@ html, body {
   grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(2, auto);
   justify-items: center;
+  padding: 5px;
+  margin-left: 15px;
 }
 
 .ship {
@@ -212,9 +215,13 @@ html, body {
   border-radius: 10px;
 } 
 
-
-
 .placing-section {
+  display: flex;
+  align-self: start;
+  column-gap: 10px;
+}
+
+.board-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -239,16 +246,75 @@ html, body {
   background-color: rgb(19, 91, 91);
 }
 
-.place-note {
-  outline: 1px solid red;
+.place-more {
+  align-self: center;
+  text-align: center;
+}
+
+.place-notes {
+  margin-bottom: 20px;
+  width: 90%;
+  justify-self: center;
+}
+
+.note {
+  margin-bottom: 15px;
+}
+
+.start-game-btn {
+  appearance: none;
+  background: transparent;
+  color: white;
+  width: 60%;
+  height: 60px;
+  border: 1px solid white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.start-game-btn:hover {
+  background: rgba(255, 0, 0, 0.153);
+  box-shadow: 0px 0px 4px 1px rgba(255, 0, 0, 0.289);
+}
+
+.start-game-btn:active {
+  background: rgba(255, 69, 69, 0.153);
+  box-shadow: 0px 0px 4px 3px rgba(255, 0, 0, 0.289);
+}
+
+.random-place-btn {
+  appearance: none;
+  background: transparent;
+  color: white;
+  width: 60%;
+  height: 40px;
+  border: 1px solid white;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.random-place-btn:hover {
+  background-color: #717171;
+}
+
+.random-place-btn:active {
+  background-color: #464646;
 }
 
 /* --- smaller screen style --- */
 
-@media (max-width: 1000px) {
+@media (max-width: 1150px) {
   .placing-board {
     width: 300px;
     height: 300px;
+  }
+
+  .placing-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
   }
 
   .board-header {
