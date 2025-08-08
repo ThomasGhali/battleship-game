@@ -168,7 +168,7 @@ html, body {
 }
 
 .boat {
-  width: 50px;
+  width: 40px;
 }
 
 .submarine-ship {
@@ -177,7 +177,7 @@ html, body {
 }
 
 .submarine {
-  width: 100px;
+  width: 80px;
 }
 
 .destroyer-ship {
@@ -185,11 +185,11 @@ html, body {
 }
 
 .destroyer {
-  width: 150px;
+  width: 130px;
 }
 
 .battleship {
-  width: 200px;
+  width: 170px;
 }
 
 .carrier-ship {
@@ -259,6 +259,7 @@ html, body {
 
 .note {
   margin-bottom: 15px;
+  margin-right: 20px;
 }
 
 .start-game-btn {
@@ -303,6 +304,26 @@ html, body {
   background-color: #464646;
 }
 
+.ship__img { 
+  transition: transform 0.4s ease-in-out;
+}
+
+.rotate.submarine {
+  transform: rotate(90deg) translateX(15px);
+}
+
+.rotate.destroyer {
+  transform: rotate(90deg) translateX(40px);
+}
+
+.rotate.battleship {
+  transform: rotate(90deg) translateX(60px) translateY(35px);
+}
+
+.rotate.carrier {
+  transform: rotate(90deg) translateX(-100px) translateY(-150px);
+}
+
 /* --- smaller screen style --- */
 
 @media (max-width: 1150px) {
@@ -320,4 +341,25 @@ html, body {
   .board-header {
     font-size: 1.4rem;
   }
+
+  .boat {
+    width: 25px;
+  }
+    
+  .submarine {
+    width: 60px;
+  }
+    
+  .destroyer {
+    width: 80px;
+  }
+  
+  .battleship {
+    width: 110px;
+  }
+    
+  .carrier {
+    width: 140px;
+  }
+  
 }
