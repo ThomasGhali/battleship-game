@@ -16,13 +16,17 @@ export default class GameFlow {
 
   async fullRound(x, y, attacked = this.opponent) {
     const result = this.#playTurn(x, y, attacked);
+    
+    // Invalid Move - player must retry
+    if (!result) return false; 
+    // Game over - all ships sunk
+    else if (result === "Game over") return true; 
 
-    if (!result) return false; // Invalid Move - player must retry
-    else if (result === "Game over") return true; // Game over - all ships sunk
+    // Round ended - waiting for next round
+    if (attacked === this.player) return; 
 
-    if (attacked === this.player) return; // Round ended - waiting for next round
-
-    await new Promise(resolve => setTimeout(resolve, 200)); // Delay before computer moves
+    // Delay before computer moves
+    await new Promise(resolve => setTimeout(resolve, 200));
 
     const [pcX, pcY] = this.opponent.computerMove();
 

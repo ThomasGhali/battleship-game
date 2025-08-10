@@ -1,3 +1,5 @@
+import GameFlow from "./gameFlow";
+
 export function createBoard() {
   const board = document.querySelector('.placing-board');
 
@@ -31,5 +33,18 @@ export function initPlaceScreen() {
         shipImg.classList.toggle('rotate');
         ship.dataset.shipDirection = ship.dataset.shipDirection === 'horizontal'? 'vertical' : 'horizontal';
       }
+    })
+
+    const startGameBtn = document.querySelector('.start-game-btn');
+
+    const ships = document.querySelectorAll('.ship');
+    startGameBtn.addEventListener('click', () => {
+      ships.map(ship => {
+        GameFlow.
+        ship.dataset.x
+        ship.dataset.y
+        ship.dataset.shipLength
+        ship.dataset.shipDirection
+      })
     })
 }

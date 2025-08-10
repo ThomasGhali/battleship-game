@@ -17,7 +17,7 @@ export default class Gameboard {
     );
   }
 
-  #placeCoords(posX, posY, length, direction) {
+  checkCoords(posX, posY, length, direction) {
     const shipCountInner = this.shipCount + 1;
     const shipsCoordinates = {};
 
@@ -33,8 +33,7 @@ export default class Gameboard {
       }
       
       // merging shipsCoordinates into this.occupiedCoord (mutates)
-      Object.assign(this.occupiedCoord, shipsCoordinates);
-      return true;
+      return shipsCoordinates;
     }
 
     // If ship's direction is vertical:
@@ -46,12 +45,13 @@ export default class Gameboard {
       shipsCoordinates[`${posX},${posY}`] = shipCountInner;
     }
 
-    Object.assign(this.occupiedCoord, shipsCoordinates);
-    return true;
+    return shipsCoordinates;
   }
 
   placeShip(startX, startY, length, direction) {
-    if (this.#placeCoords(startX, startY, length, direction)) {
+    const placemenetValid = this.checkCoords(startX, startY, length, direction)
+    if (placemenetValid) {
+      Object.assign(this.occupiedCoord, placemenetValid);
       const newShip = new Ship(length);
       newShip.shipId = this.shipCount++;
       this.ships.push(newShip);

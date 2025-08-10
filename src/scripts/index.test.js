@@ -106,14 +106,6 @@ describe("Gameboard", () => {
 
 })
 
-// --- Player class tests ---
-describe("Player class", () => {
-  test("", () => {
-
-  })
-  
-})
-
 // --- Game flow module test ---
 describe("Player class", () => {
   test("player hits computer and hit is stored in computer gamboard", () => {

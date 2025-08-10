@@ -240,6 +240,7 @@ html, body {
 .tile {
   background-color: rgb(9, 44, 44);
   outline: 1px solid white;
+  user-select: none;
 }
 
 .tile:hover {
@@ -266,7 +267,7 @@ html, body {
   appearance: none;
   background: transparent;
   color: white;
-  width: 60%;
+  width: 85%;
   height: 60px;
   border: 1px solid white;
   font-size: 1.5rem;
@@ -288,12 +289,30 @@ html, body {
   appearance: none;
   background: transparent;
   color: white;
+  /* width: 220px; */
   width: 60%;
   height: 40px;
   border: 1px solid white;
   border-radius: 10px;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.reset-board-btn {
+  appearance: none;
+  background: transparent;
+  color: white;
+  /* width: 100px; */
+  width: 25%;
+  height: 40px;
+  border: 1px solid white;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.reset-board-btn:hover {
+  background-color: rgba(0, 51, 255, 0.315);
 }
 
 .random-place-btn:hover {
@@ -306,6 +325,7 @@ html, body {
 
 .ship__img { 
   transition: transform 0.4s ease-in-out;
+  cursor: pointer;
 }
 
 .rotate.submarine {
@@ -324,6 +344,16 @@ html, body {
   transform: rotate(90deg) translateX(-100px) translateY(-150px);
 }
 
+.chosen {
+  background-color: #292828;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.chosen::after {
+  content: "✓";
+  font-size: 2rem;
+}
 /* --- smaller screen style --- */
 
 @media (max-width: 1150px) {
@@ -342,7 +372,7 @@ html, body {
     font-size: 1.4rem;
   }
 
-  .boat {
+  /* .boat {
     width: 25px;
   }
     
@@ -360,6 +390,7 @@ html, body {
     
   .carrier {
     width: 140px;
-  }
+  } */
   
 }
+
