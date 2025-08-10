@@ -1,13 +1,18 @@
-import GameFlow from "./gameFlow";
+// import an instance of gameflow which is made when the user enters
+// his name and clicks start
+import { gameflow } from "./index.js";
 
 export function createBoard() {
   const board = document.querySelector('.placing-board');
-
-  for (let i = 0; i < 100; i++) {
-    const cell = document.createElement('div');
-    board.appendChild(cell);
-    cell.dataset.id = i;
-    cell.classList.add('tile');
+  
+  for (let i = 1; i < 11; i++) {
+    for (let j = 1; j < 11; j++) {
+      const cell = document.createElement('div');
+      board.appendChild(cell);
+      cell.dataset.x = i;
+      cell.dataset.y = j;
+      cell.classList.add('tile');
+    }
   }
 }
 
@@ -22,29 +27,52 @@ export function showBoard() {
   })
 }
 
+const shipsWindow = document.querySelector('.ships-to-place');
+
 export function initPlaceScreen() {
-    const shipsWindow = document.querySelector('.ships-to-place');
+  
+  // Rotate button functionality
+  shipsWindow.addEventListener('click', (event) => {
+    if (event.target.classList.contains('ship__rotate')) {
+      const ship = event.target.closest('.ship')
+      const shipImg = ship.querySelector('.ship__img');
 
-    shipsWindow.addEventListener('click', (event) => {
-      if (event.target.classList.contains('ship__rotate')) {
-        const ship = event.target.closest('.ship')
-        const shipImg = ship.querySelector('.ship__img');
+      shipImg.classList.toggle('rotate');
+      ship.dataset.shipDirection = ship.dataset.shipDirection === 'horizontal'? 'vertical' : 'horizontal';
+    }
+  })
 
-        shipImg.classList.toggle('rotate');
-        ship.dataset.shipDirection = ship.dataset.shipDirection === 'horizontal'? 'vertical' : 'horizontal';
-      }
-    })
+  const shipImages = document.querySelectorAll('.ship__img');
+  const board = document.querySelector('.placing-board');
+  // Check position
 
-    const startGameBtn = document.querySelector('.start-game-btn');
+  let selectedShip = null;
 
-    const ships = document.querySelectorAll('.ship');
-    startGameBtn.addEventListener('click', () => {
-      ships.map(ship => {
-        GameFlow.
-        ship.dataset.x
-        ship.dataset.y
-        ship.dataset.shipLength
-        ship.dataset.shipDirection
-      })
-    })
+  shipsWindow.addEventListener('click', (event) => {
+    if (event.target.closest('.ship__img')) {
+      selectedShip = event.target.closest('.ship')
+    }
+  });
+
+
+  // Grabbing a ship
+  board.addEventListener('mouseover', (event) => {
+    if (!selectedShip) return;
+
+    const tile = event.target.closest('.tile');
+    if (!tile) return; // Ignore if it's not a tile
+
+    const x = parseInt(tile.dataset.x);
+    const y = parseInt(tile.dataset.y);
+    const shipLength = parseInt(selectedShip.dataset.shipLength) ;
+    const shipDirection = selectedShip.dataset.shipDirection;
+  
+    // gameflow should be an imported instance of GameFlow
+    let validity = gameflow.player.gameboard.checkCoords(
+      x, y, shipLength, shipDirection
+    );
+    console.log(x, y, shipLength, shipDirection)
+    console.log(validity ? 'Valid move' : 'Invalid move')
+    
+  })
 }

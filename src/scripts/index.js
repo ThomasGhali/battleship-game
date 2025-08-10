@@ -7,6 +7,8 @@ import showSplash from "./splash.js";
 import showMenu from './menu.js'
 import { createBoard, showBoard, initPlaceScreen } from './placeShips.js'
 
+export const gameflow = new GameFlow('tom');
+
 document.addEventListener("DOMContentLoaded", async () => {
   // await showSplash();
   // await showMenu();
