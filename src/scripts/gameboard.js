@@ -20,34 +20,20 @@ export default class Gameboard {
   checkCoords(posX, posY, length, direction) {
     const shipCountInner = this.shipCount + 1;
     const shipsCoordinates = {};
-
-    // If ship's direction is horizontal:
-    if (direction === 'horizontal') {
-
-      const endCoordY = posY + length;
-
-      for (posY; posY < endCoordY; posY++) {
-        if (this.#invalidCoord(posX, posY)) return false;
-
-        shipsCoordinates[`${posX},${posY}`] = shipCountInner;
-      }
-      
-      // merging shipsCoordinates into this.occupiedCoord (mutates)
-      return shipsCoordinates;
+  
+    const isHorizontal = direction === "horizontal";
+  
+    for (let i = 0; i < length; i++) {
+      const x = isHorizontal ? posX : posY + i;
+      const y = isHorizontal ? posX + i : posY;
+  
+      if (this.#invalidCoord(x, y)) return false;
+  
+      shipsCoordinates[`${x},${y}`] = shipCountInner;
     }
-
-    // If ship's direction is vertical:
-    const endCoordX = posX + length;
-
-    for (posX; posX < endCoordX; posX++) {
-      if (this.#invalidCoord(posX, posY)) return false;
-
-      shipsCoordinates[`${posX},${posY}`] = shipCountInner;
-    }
-
+  
     return shipsCoordinates;
   }
-
   placeShip(startX, startY, length, direction) {
     const placemenetValid = this.checkCoords(startX, startY, length, direction)
     if (placemenetValid) {
