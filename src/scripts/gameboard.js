@@ -24,8 +24,8 @@ export default class Gameboard {
     const isHorizontal = direction === "horizontal";
   
     for (let i = 0; i < length; i++) {
-      const x = isHorizontal ? posX : posY + i;
-      const y = isHorizontal ? posX + i : posY;
+      const x = isHorizontal ? posX : posX + i;
+      const y = isHorizontal ? posY + i : posY;
   
       if (this.#invalidCoord(x, y)) return false;
   
@@ -34,10 +34,12 @@ export default class Gameboard {
   
     return shipsCoordinates;
   }
+
   placeShip(startX, startY, length, direction) {
-    const placemenetValid = this.checkCoords(startX, startY, length, direction)
-    if (placemenetValid) {
-      Object.assign(this.occupiedCoord, placemenetValid);
+    const placementValid = this.checkCoords(startX, startY, length, direction)
+    
+    if (placementValid) {
+      Object.assign(this.occupiedCoord, placementValid);
       const newShip = new Ship(length);
       newShip.shipId = this.shipCount++;
       this.ships.push(newShip);
@@ -70,7 +72,7 @@ export default class Gameboard {
   }
 
   fleetCheck() {
-    for (ship of this.ships) {
+    for (let ship of this.ships) {
       if (!ship.sunk) return 'fleet alive'
     }
 
