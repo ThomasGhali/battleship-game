@@ -44,19 +44,22 @@ export function initPlaceScreen() {
 
   const shipImages = document.querySelectorAll('.ship__img');
   const board = document.querySelector('.placing-board');
-  // Check position
-
   let selectedShip = null;
+  let validity = false;
 
-  shipsWindow.addEventListener('click', (event) => {
-    if (event.target.closest('.ship__img')) {
-      selectedShip = event.target.closest('.ship')
-    }
-  });
+  shipsWindow.addEventListener('mousedown', (event) => {
+    const shipImg = event.target.closest('.ship__img');
 
+    if(!shipImg) return;
 
-  // Grabbing a ship
-  board.addEventListener('mouseover', (event) => {
+    selectedShip = event.target.closest('.ship');
+    selectedShip.classList.add('dragged');
+
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', onDrop);
+  })
+
+  function onDrag(event) {
     if (!selectedShip) return;
 
     const tile = event.target.closest('.tile');
@@ -66,13 +69,24 @@ export function initPlaceScreen() {
     const y = parseInt(tile.dataset.y);
     const shipLength = parseInt(selectedShip.dataset.shipLength) ;
     const shipDirection = selectedShip.dataset.shipDirection;
-  
+
     // gameflow should be an imported instance of GameFlow
-    let validity = gameflow.player.gameboard.checkCoords(
+    validity = gameflow.player.gameboard.checkCoords(
       x, y, shipLength, shipDirection
     );
+
     console.log(x, y, shipLength, shipDirection)
     console.log(validity ? 'Valid move' : 'Invalid move')
-    
-  })
+  }
+
+  function onDrop() {
+    document.removeEventListener('mousemove', onDrag);
+    selectedShip.classList.remove('dragged');
+
+    if (validity) selectedShip.classList.add('chosen');
+
+    selectedShip = null;
+    validity = false;
+  }
+
 }

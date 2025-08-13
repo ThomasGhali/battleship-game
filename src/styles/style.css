@@ -355,6 +355,18 @@ html, body {
   content: "✓";
   font-size: 2rem;
 }
+
+.dragged {
+  background-color: #333232;
+  opacity: 0.5;
+}
+
+.dragged::after {
+  content: "Placing ..";
+  font-size: 1rem;
+}
+
+
 /* --- smaller screen style --- */
 
 @media (max-width: 1150px) {
