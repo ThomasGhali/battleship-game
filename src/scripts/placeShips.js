@@ -43,26 +43,57 @@ export function initPlaceScreen() {
   })
 
   const shipImages = document.querySelectorAll('.ship__img');
-  const board = document.querySelector('.placing-board');
   let selectedShip = null;
   let validity = false;
 
-  shipsWindow.addEventListener('mousedown', (event) => {
-    const shipImg = event.target.closest('.ship__img');
+  shipsWindow.addEventListener('click', (event) => {
+    const ship = event.target.closest(".ship");
+    
+    // Not a ship or already chosen, exit
+    if (!ship || ship.classList.contains("chosen")) return;
 
-    if(!shipImg) return;
+    // Clicking same ship again unselects it, exit
+    if (ship === selectedShip) {
+      ship.classList.remove('selected');
+      selectedShip = null;
+      return
+    }
 
-    selectedShip = event.target.closest('.ship');
-    selectedShip.classList.add('dragged');
+    // Remove selection from other ships
+    if (selectedShip) {
+      document.querySelectorAll('.selected')
+        .forEach(sel => sel.classList.remove('.selected'))
+    }
 
-    document.addEventListener('mousemove', onDrag);
-    document.addEventListener('mouseup', onDrop);
+    ship.classList.add('selected');
+    selectedShip = ship;
+  })
+
+  const board = document.querySelector('.placing-board');
+  board.addEventListener('click', (event) => {
+    // If no selected ships, don't handle event
+    if (!selectedShip) return;
+
+    const tile = event.target.closest('.tile');
+    if (!tile) return
+
+    const x = parseInt(tile.dataset.x);
+    const y = parseInt(tile.dataset.y);
+    const shipLength = parseInt(selectedShip.dataset.shipLength) ;
+    const shipDirection = selectedShip.dataset.shipDirection;
+
+    // gameflow should be an imported instance of GameFlow
+    validity = gameflow.player.gameboard.checkCoords(
+      x, y, shipLength, shipDirection
+    );
+
   })
 
   function onDrag(event) {
     if (!selectedShip) return;
 
-    const tile = event.target.closest('.tile');
+    const elem = document.elementFromPoint(event.clientX, event.clientY);
+    const tile = elem ? elem.closest('.tile') : null;
     if (!tile) return; // Ignore if it's not a tile
 
     const x = parseInt(tile.dataset.x);
@@ -77,16 +108,6 @@ export function initPlaceScreen() {
 
     console.log(x, y, shipLength, shipDirection)
     console.log(validity ? 'Valid move' : 'Invalid move')
-  }
-
-  function onDrop() {
-    document.removeEventListener('mousemove', onDrag);
-    selectedShip.classList.remove('dragged');
-
-    if (validity) selectedShip.classList.add('chosen');
-
-    selectedShip = null;
-    validity = false;
   }
 
 }

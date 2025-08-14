@@ -238,6 +238,10 @@ html, body {
   background-color: rgb(9, 44, 44);
 }
 
+.board-header {
+  font-size: 1.7rem;
+}
+
 .tile {
   background-color: rgb(9, 44, 44);
   outline: 1px solid white;
@@ -245,6 +249,10 @@ html, body {
 }
 
 .tile:hover {
+  background-color: rgb(19, 91, 91);
+}
+
+.hovered {
   background-color: rgb(19, 91, 91);
 }
 
@@ -356,12 +364,12 @@ html, body {
   font-size: 2rem;
 }
 
-.dragged {
+.selected {
   background-color: #333232;
   opacity: 0.5;
 }
 
-.dragged::after {
+.selected::after {
   content: "Placing ..";
   font-size: 1rem;
 }
