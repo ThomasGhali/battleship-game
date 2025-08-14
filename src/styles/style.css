@@ -355,7 +355,7 @@ html, body {
 }
 
 .rotate.carrier {
-  transform: rotate(90deg) translateX(-100px) translateY(-150px);
+  transform: rotate(90deg) translateX(-80px) translateY(-150px);
 }
 
 .chosen {

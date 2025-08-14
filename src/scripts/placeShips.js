@@ -70,29 +70,49 @@ export function initPlaceScreen() {
     selectedShip = ship;
   })
 
-  /* --- Placing selected ship --- */
+  /* --- validating selected ship's position --- */
 
-  const board = document.querySelector('.placing-board')
-
-  board.addEventListener('mouseover', (e) => {
-    const tile = e.target.closest('.tile');
-    // A tile is and ship are selected else, exit
-    if (!tile ||  !selectedShip) return;
-
+  function getPositionData(tile, ship) {
     const x = parseInt(tile.dataset.x);
     const y = parseInt(tile.dataset.y);
-    const shipLength = parseInt(selectedShip.dataset.shipLength) ;
-    const shipDirection = selectedShip.dataset.shipDirection;
+    const shipLength = parseInt(ship.dataset.shipLength) ;
+    const shipDirection = ship.dataset.shipDirection;
 
 
     // gameflow should be an imported instance of GameFlow
     const validity = gameflow.player.gameboard.checkCoords(
       x, y, shipLength, shipDirection
     );
+
+    return {
+      x,
+      y,
+      shipLength,
+      shipDirection,
+      validity
+    };
+  }
+
+  const board = document.querySelector('.placing-board')
+
+  // Add validity styles to hovered tiles
+  board.addEventListener('mouseover', (e) => {
+    const tile = e.target.closest('.tile');
+    // A tile is and ship are selected else, exit
+    if (!tile ||  !selectedShip) return;
+
+    const position = getPositionData(tile, selectedShip);
   
-    paintPreview(x, y, shipLength, shipDirection, validity)
+    paintPreview(
+      position.x, 
+      position.y, 
+      position.shipLength, 
+      position.shipDirection, 
+      position.validity
+    )
   })
 
+  // Trigger refresh validity styles
   board.addEventListener('mouseleave', clearPreview);
 
   // Showing validity of placement tile(s)
@@ -111,8 +131,32 @@ export function initPlaceScreen() {
     }
   }
   
+  // Clear any validity style(s)
   function clearPreview() {
     document.querySelectorAll('.valid-preview, .invalid-preview')
       .forEach(tile => tile.classList.remove('valid-preview', 'invalid-preview'));
   }
+
+
+
+  /* --- placing ships --- */
+
+  board.addEventListener('click', () => {
+    if (!selectedShip) return;
+
+    const tile = e.target.closest('.tile');
+    const { 
+      x, 
+      y, 
+      shipLength, 
+      shipDirection, 
+      validity 
+    } = getPositionData(tile, selectedShip);
+
+    if (!validity) return;
+
+    // When valid, place
+    gameflow.player.gameboard.placeShip(x, y, shipLength, shipDirection);
+  })
+
 }
