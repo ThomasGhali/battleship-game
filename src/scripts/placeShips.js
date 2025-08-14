@@ -141,10 +141,10 @@ export function initPlaceScreen() {
 
   /* --- placing ships --- */
 
-  board.addEventListener('click', () => {
+  board.addEventListener('click', (event) => {
     if (!selectedShip) return;
 
-    const tile = e.target.closest('.tile');
+    const tile = event.target.closest('.tile');
     const { 
       x, 
       y, 
@@ -157,6 +157,9 @@ export function initPlaceScreen() {
 
     // When valid, place
     gameflow.player.gameboard.placeShip(x, y, shipLength, shipDirection);
+    selectedShip.classList.remove('selected');
+    selectedShip.classList.add('chosen');
+    selectedShip = null;
   })
 
 }
