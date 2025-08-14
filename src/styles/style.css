@@ -252,8 +252,13 @@ html, body {
   background-color: rgb(19, 91, 91);
 }
 
-.hovered {
-  background-color: rgb(19, 91, 91);
+.valid-preview {
+  background-color: rgb(58, 114, 96);
+}
+
+.invalid-preview {
+  background-color: rgb(219, 161, 161) !important;
+  cursor: not-allowed;
 }
 
 .place-more {
