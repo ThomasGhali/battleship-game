@@ -369,15 +369,14 @@ html, body {
   opacity: 0.5;
 }
 
-.selected::after {
-  content: "Placing ..";
+.selected::before {
+  content: "Placing...";
   font-size: 1rem;
 }
 
-
 /* --- smaller screen style --- */
 
-@media (max-width: 1150px) {
+@media (max-width: 1180px) {
   .placing-board {
     width: 300px;
     height: 300px;

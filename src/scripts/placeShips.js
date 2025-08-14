@@ -47,6 +47,7 @@ export function initPlaceScreen() {
   let validity = false;
 
   shipsWindow.addEventListener('click', (event) => {
+    if (!event.target.closest(".ship__img")) return;
     const ship = event.target.closest(".ship");
     
     // Not a ship or already chosen, exit
@@ -62,7 +63,7 @@ export function initPlaceScreen() {
     // Remove selection from other ships
     if (selectedShip) {
       document.querySelectorAll('.selected')
-        .forEach(sel => sel.classList.remove('.selected'))
+        .forEach(sel => sel.classList.remove('selected'))
     }
 
     ship.classList.add('selected');
@@ -87,27 +88,8 @@ export function initPlaceScreen() {
       x, y, shipLength, shipDirection
     );
 
+    console.log(validity? "valid" : "invalid")
+
   })
-
-  function onDrag(event) {
-    if (!selectedShip) return;
-
-    const elem = document.elementFromPoint(event.clientX, event.clientY);
-    const tile = elem ? elem.closest('.tile') : null;
-    if (!tile) return; // Ignore if it's not a tile
-
-    const x = parseInt(tile.dataset.x);
-    const y = parseInt(tile.dataset.y);
-    const shipLength = parseInt(selectedShip.dataset.shipLength) ;
-    const shipDirection = selectedShip.dataset.shipDirection;
-
-    // gameflow should be an imported instance of GameFlow
-    validity = gameflow.player.gameboard.checkCoords(
-      x, y, shipLength, shipDirection
-    );
-
-    console.log(x, y, shipLength, shipDirection)
-    console.log(validity ? 'Valid move' : 'Invalid move')
-  }
 
 }
