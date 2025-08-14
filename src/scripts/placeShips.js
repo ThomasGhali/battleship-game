@@ -162,4 +162,20 @@ export function initPlaceScreen() {
     selectedShip = null;
   })
 
+  /* --- Reset --- */
+  
+  const resetBtn = document.querySelector('.reset-board-btn');
+
+  resetBtn.addEventListener('click', () => {
+    const ships = document.querySelectorAll(".ship");
+    
+    ships.forEach((ship) => {
+      ship.classList.remove('chosen')
+    })
+
+    selectedShip = null;
+
+    gameflow.player.gameboard.occupiedCoord = {};
+  })
+
 }
