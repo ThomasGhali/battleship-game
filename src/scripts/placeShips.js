@@ -1,6 +1,7 @@
 // import an instance of gameflow which is made when the user enters
 // his name and clicks start
 import { gameflow } from "./index.js";
+import Player from "./player.js";
 
 export function createBoard() {
   const board = document.querySelector('.placing-board');
@@ -165,9 +166,9 @@ export function initPlaceScreen() {
   /* --- Reset --- */
   
   const resetBtn = document.querySelector('.reset-board-btn');
+  const ships = document.querySelectorAll(".ship");
 
   resetBtn.addEventListener('click', () => {
-    const ships = document.querySelectorAll(".ship");
     
     ships.forEach((ship) => {
       ship.classList.remove('chosen')
@@ -200,30 +201,33 @@ export function initPlaceScreen() {
     }
   }
 
-  autoPositionBtn.addEventListener("click", () => {
-    // Trigger a reset
-    resetBtn.dispatchEvent(new Event("click"));
-
+  // Auto places ship of a passed side (player or opponent) e.g. gamflow.player
+  function autoPositionShips(side) {
     const maxShipLength = 5;
     
     for (let length = 1; length <= maxShipLength; length++) {
       let isValid = null;
       let x, y, direction;
-      let attampts = 0;
+      let attempts = 0;
       // If not valid give another random position
-      while (!isValid && attampts < 200) {
+      while (!isValid) {
         ({ x, y, direction} = giveRandomPosition());
-        isValid = gameflow.player.gameboard.checkCoords(
+        isValid = side.gameboard.checkCoords(
           x, y, length, direction
         )
-
-        // Infinite loop protection
-        attampts++;
       }
 
-      gameflow.player.gameboard.placeShip(x, y, length, direction)
-
+      side.gameboard.placeShip(x, y, length, direction)
     }
+
+  }
+
+  autoPositionBtn.addEventListener("click", () => {
+    // Trigger a reset
+    resetBtn.dispatchEvent(new Event("click"));
+    autoPositionShips(gameflow.player);
+
+    ships.forEach((ship) => ship.classList.add("chosen"));
   })
 
 }
