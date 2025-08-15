@@ -31,7 +31,7 @@ export default class Gameboard {
   
       shipsCoordinates[`${x},${y}`] = shipCountInner;
     }
-  
+    
     return shipsCoordinates;
   }
 

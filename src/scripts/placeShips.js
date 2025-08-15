@@ -178,4 +178,52 @@ export function initPlaceScreen() {
     gameflow.player.gameboard.occupiedCoord = {};
   })
 
+  /* --- Auto place ships --- */
+
+  const autoPositionBtn = document.querySelector(".random-place-btn");
+
+  // Random integer within range of -> 1 to max
+  function randomNum(max) {
+    return Math.ceil(Math.random() * max);
+  }
+
+  // Give random position and direction
+  function giveRandomPosition() {
+    const x = randomNum(10);
+    const y = randomNum(10);
+    const direction = ['horizontal', 'vertical'][randomNum(2) - 1];
+
+    return {
+      x,
+      y,
+      direction
+    }
+  }
+
+  autoPositionBtn.addEventListener("click", () => {
+    // Trigger a reset
+    resetBtn.dispatchEvent(new Event("click"));
+
+    const maxShipLength = 5;
+    
+    for (let length = 1; length <= maxShipLength; length++) {
+      let isValid = null;
+      let x, y, direction;
+      let attampts = 0;
+      // If not valid give another random position
+      while (!isValid && attampts < 200) {
+        ({ x, y, direction} = giveRandomPosition());
+        isValid = gameflow.player.gameboard.checkCoords(
+          x, y, length, direction
+        )
+
+        // Infinite loop protection
+        attampts++;
+      }
+
+      gameflow.player.gameboard.placeShip(x, y, length, direction)
+
+    }
+  })
+
 }
