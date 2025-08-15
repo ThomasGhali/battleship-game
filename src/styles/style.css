@@ -161,6 +161,7 @@ html, body {
   background: transparent;
   color: white;
   height: 21px;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" stroke="black" stroke-width="0.5" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6c0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6c0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4l-4-4v3z"/></svg>'), auto;
 }
 
 .boat-ship {
@@ -358,6 +359,10 @@ html, body {
   transform: rotate(90deg) translateX(-80px) translateY(-150px);
 }
 
+.rotate.carrier.sticking {
+  transform: rotate(90deg) translateX(100px) translateY(100px);
+}
+
 .chosen {
   background-color: #292828;
   opacity: 0.2;
@@ -372,17 +377,27 @@ html, body {
 .selected {
   background-color: #333232;
   opacity: 0.5;
+  outline: 1px dashed white;
 }
 
 .selected::before {
   content: "Placing...";
-  font-size: 1rem;
+}
+
+.selected::after {
+  content: "click on this grey area to return...";
+  color: #717171;
+  padding: 5px;
+}
+
+
+.selected:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="20" viewBox="0 0 60 20"><text x="16" y="14" font-family="Arial" font-size="12" fill="white">Return</text></svg>') 0 0, auto;
 }
 
 .sticking {
   position: fixed;
   pointer-events: none;
-  z-index: 9999;
 }
 
 /* --- smaller screen style --- */

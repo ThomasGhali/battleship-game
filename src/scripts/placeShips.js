@@ -5,6 +5,7 @@ import Player from "./player.js";
 
 export function createBoard() {
   const board = document.querySelector('.placing-board');
+  board.innerHTML = "";
   
   for (let i = 1; i < 11; i++) {
     for (let j = 1; j < 11; j++) {
@@ -50,42 +51,56 @@ export function initPlaceScreen() {
   
   // Make ship stick to cursor
   function stickToCursor(e) {
+    if (!shipImage) return;
     shipImage.style.left = e.clientX + "px";
-    shipImage.style.top = e.clientY - 15 + "px";
+    shipImage.style.top = (e.clientY - 15) + "px";
+  }
+
+  function resetSticking() {
+    document.removeEventListener('mousemove', stickToCursor);
+    if (shipImage) {
+      shipImage.classList.remove("sticking");
+      shipImage.style.left = '';
+      shipImage.style.top = '';
+      shipImage = null;
+    }
   }
 
   shipsWindow.addEventListener('click', (event) => {
-    shipImage = event.target.closest(".ship__img");
-    if (!shipImage) return;
-
     const ship = event.target.closest(".ship");
-    
+
     // Not a ship or already chosen, exit
     if (!ship || ship.classList.contains("chosen")) return;
-
-    shipImage.classList.add("sticking");
-
+    
+    
     // Clicking same ship again unselects it, exit
     if (ship === selectedShip) {
+      resetSticking();
       ship.classList.remove('selected');
       selectedShip = null;
-      shipImage.classList.remove("sticking");
       return
     }
 
+    const clickedImg = event.target.closest(".ship__img");
+    if (!clickedImg) return;
+
     // Remove selection from other ships
     if (selectedShip) {
-      document.querySelectorAll('.selected')
-        .forEach(sel => sel.classList.remove('selected'));
+      document.querySelectorAll('.selected').forEach(sel => sel.classList.remove('selected'));
+      resetSticking();
     }
 
+    // If ship valid, select it
+    selectedShip = ship;
+    ship.classList.add('selected');
+    // Make it stick to cursor
+    shipImage = clickedImg;
+    shipImage.classList.add('sticking');
 
-
-    // If ship valid make it stick to cursor
+    // Ensure single handler
+    document.removeEventListener("mousemove", stickToCursor);
     document.addEventListener("mousemove", stickToCursor);
 
-    ship.classList.add('selected');
-    selectedShip = ship;
   })
 
   /* --- validating selected ship's position --- */
@@ -156,7 +171,7 @@ export function initPlaceScreen() {
   }
 
 
-
+window.gameflow = gameflow;
   /* --- placing ships --- */
 
   board.addEventListener('click', (event) => {
@@ -177,8 +192,7 @@ export function initPlaceScreen() {
     gameflow.player.gameboard.placeShip(x, y, shipLength, shipDirection);
     selectedShip.classList.remove("selected");
     selectedShip.classList.add("chosen");
-    shipImage.classList.remove("sticking");
-    document.removeEventListener("mousemove", stickToCursor);
+    resetSticking();
     selectedShip = null;
   })
 
@@ -190,10 +204,15 @@ export function initPlaceScreen() {
   resetBtn.addEventListener('click', () => {
     
     ships.forEach((ship) => {
-      ship.classList.remove('chosen')
+      ship.classList.remove('chosen');
     })
-
-    selectedShip = null;
+    
+    // Remove all added styles
+    resetSticking()
+    if (selectedShip) {
+      selectedShip.classList.remove("selected");
+      selectedShip = null;
+    }
 
     gameflow.player.gameboard.occupiedCoord = {};
   })
@@ -249,5 +268,6 @@ export function initPlaceScreen() {
 
     ships.forEach((ship) => ship.classList.add("chosen"));
   })
+
 
 }
