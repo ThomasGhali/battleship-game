@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // await showSplash();
   // await showMenu();
   // await showBoard();
-  initPlaceScreen();
   createBoard();
+  initPlaceScreen();
 })
 
 //------------------------game.js

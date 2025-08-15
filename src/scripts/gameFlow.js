@@ -25,7 +25,7 @@ export default class GameFlow {
     // Round ended - waiting for next round
     if (attacked === this.player) return; 
 
-    // Delay before computer moves
+    // Delay before computer attacks
     await new Promise(resolve => setTimeout(resolve, 200));
 
     const [pcX, pcY] = this.opponent.computerMove();

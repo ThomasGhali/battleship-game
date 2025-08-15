@@ -33,13 +33,4 @@ export default class Player {
 
     return move;
   }
-
-  // playTurn(x, y) {
-  //   if (this.isComputer) {
-  //     return this.#makeRandomMove();
-  //   }
-
-  //   this.gameboard.
-    
-  // }
 }
