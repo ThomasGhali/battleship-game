@@ -379,6 +379,12 @@ html, body {
   font-size: 1rem;
 }
 
+.sticking {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 /* --- smaller screen style --- */
 
 @media (max-width: 1180px) {

@@ -44,28 +44,45 @@ export function initPlaceScreen() {
   })
 
   /* --- Ship selecting --- */
-
+  
   let selectedShip = null;
+  let shipImage = null;
+  
+  // Make ship stick to cursor
+  function stickToCursor(e) {
+    shipImage.style.left = e.clientX + "px";
+    shipImage.style.top = e.clientY - 15 + "px";
+  }
 
   shipsWindow.addEventListener('click', (event) => {
-    if (!event.target.closest(".ship__img")) return;
+    shipImage = event.target.closest(".ship__img");
+    if (!shipImage) return;
+
     const ship = event.target.closest(".ship");
     
     // Not a ship or already chosen, exit
     if (!ship || ship.classList.contains("chosen")) return;
 
+    shipImage.classList.add("sticking");
+
     // Clicking same ship again unselects it, exit
     if (ship === selectedShip) {
       ship.classList.remove('selected');
       selectedShip = null;
+      shipImage.classList.remove("sticking");
       return
     }
 
     // Remove selection from other ships
     if (selectedShip) {
       document.querySelectorAll('.selected')
-        .forEach(sel => sel.classList.remove('selected'))
+        .forEach(sel => sel.classList.remove('selected'));
     }
+
+
+
+    // If ship valid make it stick to cursor
+    document.addEventListener("mousemove", stickToCursor);
 
     ship.classList.add('selected');
     selectedShip = ship;
@@ -158,8 +175,10 @@ export function initPlaceScreen() {
 
     // When valid, place
     gameflow.player.gameboard.placeShip(x, y, shipLength, shipDirection);
-    selectedShip.classList.remove('selected');
-    selectedShip.classList.add('chosen');
+    selectedShip.classList.remove("selected");
+    selectedShip.classList.add("chosen");
+    shipImage.classList.remove("sticking");
+    document.removeEventListener("mousemove", stickToCursor);
     selectedShip = null;
   })
 
@@ -201,7 +220,8 @@ export function initPlaceScreen() {
     }
   }
 
-  // Auto places ship of a passed side (player or opponent) e.g. gamflow.player
+  // Auto places ship for a passed side (player or opponent)
+  // e.g. autoPositionShips(gamflow.player)
   function autoPositionShips(side) {
     const maxShipLength = 5;
     
