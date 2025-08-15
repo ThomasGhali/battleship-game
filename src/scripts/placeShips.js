@@ -183,11 +183,11 @@ export function initPlaceScreen() {
     /* --- placing ships --- */
 
     const allTiles = document.querySelectorAll('.tile');
+    const tilesCount = 100;
 
     // Print ships on occupied tiles
     function previewShipOnBoard() {
       const occupiedCoord = Object.keys(gameflow.player.gameboard.occupiedCoord);
-      const tilesCount = 100;
     
       occupiedCoord.forEach(key => {
         const [x, y] = key.split(',');
@@ -199,6 +199,16 @@ export function initPlaceScreen() {
           }
         }
       });
+    }
+
+    // Clear all previously occupied tiles
+    function clrPreviewShipOnBoard() {
+      for (let i = 0; i < tilesCount; i++) {
+        const tile = allTiles[i]
+        if (tile.classList.contains('tile-occupied')) {
+          tile.classList.remove('tile-occupied');
+        }
+      }
     }
 
     board.addEventListener('click', (event) => {
@@ -242,7 +252,10 @@ export function initPlaceScreen() {
         selectedShip = null;
       }
 
+      
       gameflow.player.gameboard.occupiedCoord = {};
+      clrPreviewShipOnBoard();
+      
     })
 
     /* --- Auto place ships --- */
@@ -295,14 +308,23 @@ export function initPlaceScreen() {
       autoPositionShips(gameflow.player);
 
       ships.forEach((ship) => ship.classList.add("chosen"));
+      previewShipOnBoard();
     })
 
     // Starting the game and potentially resolving
     const startGameBtn = document.querySelector('.start-game-btn');
-    startGameBtn.addEventListener("click", () => {
-      if (!gameflow.player.gameboard.shipCount === 5) return;
+    const startGameBtnMessage = document.querySelector(".start-game-btn__message");
+    startGameBtn.addEventListener("click", async () => {
+      if (gameflow.player.gameboard.shipCount < 5) {
+        startGameBtnMessage.textContent = 'You have to place all your ships first';
+        startGameBtn.disabled = true;
+        await new Promise(res => setTimeout(res, 2000));
+        startGameBtnMessage.textContent = '';
+        startGameBtn.disabled = false;
+        return;
+      }
 
-
+      resolve();
     })
   })
 }
