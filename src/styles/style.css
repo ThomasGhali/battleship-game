@@ -362,15 +362,23 @@ html, body {
 }
 
 .rotate.battleship {
-  transform: rotate(90deg) translateX(60px) translateY(35px);
+  transform: rotate(90deg) translateX(60px);
+}
+
+.selected[data-ship-direction="vertical"] > img {
+  transform: rotate(90deg) translateX(60px) translateY(40px);
 }
 
 .rotate.carrier {
-  transform: rotate(90deg) translateX(-80px) translateY(-150px);
+  transform: rotate(90deg) translateX(65px);
 }
 
 .rotate.carrier.sticking {
-  transform: rotate(90deg) translateX(100px) translateY(100px);
+  transform: rotate(90deg) translateY(100px);
+}
+
+.carrier-ship.selected[data-ship-direction="vertical"] > img{
+  transform: rotate(90deg) translateY(70px) translateX(60px);
 }
 
 .chosen {
@@ -413,7 +421,8 @@ html, body {
 
 /* ship on board preview */
 .tile-occupied {
-  background-color: aqua;
+  background-color: rgb(165, 193, 226);
+  pointer-events: none;
 }
 
 /* --- smaller screen style --- */
@@ -423,6 +432,12 @@ html, body {
     width: 300px;
     height: 300px;
   }
+
+  .ships-to-place {
+    grid-template-rows: 100px 170px;
+    grid-template-columns: repeat(2, auto);
+  }
+  
 
   .placing-section {
     display: flex;
@@ -453,6 +468,24 @@ html, body {
   .carrier {
     width: 140px;
   }
+
+  .boat-ship {
+    width: 90px;
+    height: 60px;
+  }
   
+  .submarine-ship {
+    width: 150px;
+    height: 90px;
+  }
+  
+  .destroyer-ship {
+    height: 140px;
+  }
+
+  .battleship-ship {
+    height: 160px;
+  }
+    
 }
 

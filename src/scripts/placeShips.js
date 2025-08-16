@@ -3,8 +3,8 @@
 import { gameflow } from "./index.js";
 import Player from "./player.js";
 
-export function createBoard() {
-  const board = document.querySelector('.placing-board');
+export function createBoard(boardClass) {
+  const board = document.querySelector(boardClass);
   board.innerHTML = "";
   
   for (let i = 1; i < 11; i++) {
@@ -18,15 +18,19 @@ export function createBoard() {
   }
 }
 
-export function showBoard() {
-  return new Promise (async (resolve) => {
-    const placeShipsScreen = document.getElementById('place-ships');
+const placeShipsScreen = document.getElementById('place-ships');
+export async function showBoard() {
+  placeShipsScreen.classList.add('active');
 
-    placeShipsScreen.classList.add('active')
-    // fade in
-    await new Promise(r => setTimeout(r, 500)); 
-    resolve();
-  })
+  // fade in
+  await new Promise(r => setTimeout(r, 500)); 
+}
+
+export async function hideBoard() {
+  placeShipsScreen.classList.remove("active");
+
+  // fade out
+  await new Promise(r => setTimeout(r, 500));
 }
 
 const shipsWindow = document.querySelector('.ships-to-place');
