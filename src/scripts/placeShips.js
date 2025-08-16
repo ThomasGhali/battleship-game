@@ -19,30 +19,29 @@ export function createBoard(boardClass) {
 }
 
 const placeShipsScreen = document.getElementById('place-ships');
-export async function showBoard() {
+export async function showBoardScreen() {
   placeShipsScreen.classList.add('active');
 
   // fade in
   await new Promise(r => setTimeout(r, 500)); 
 }
 
-export async function hideBoard() {
+export async function hideBoardScreen() {
   placeShipsScreen.classList.remove("active");
 
   // fade out
   await new Promise(r => setTimeout(r, 500));
 }
 
-const shipsWindow = document.querySelector('.ships-to-place');
-
 /**
  * Initializes the ship placement screen UI:
  * - Handles ship rotation, selection, and sticking to cursor
  * - Validates placement on hover
- * - Allows manual, reset, and auto-placement of ships
+ * - Allows manual reset, and auto-placement of ships
  * 
  * Resolves when all ships are placed and start button clicked.
- */
+*/
+const shipsWindow = document.querySelector('.ships-to-place');
 export function initPlaceScreen() {
   return new Promise((resolve) => {
     // Rotate button functionality
@@ -258,6 +257,7 @@ export function initPlaceScreen() {
 
       
       gameflow.player.gameboard.occupiedCoord = {};
+      gameflow.player.gameboard.shipCount = 0;
       clrPreviewShipOnBoard();
       
     })

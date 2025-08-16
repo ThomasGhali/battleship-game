@@ -5,17 +5,18 @@ import Player from './player.js'
 import GameFlow from './gameFlow.js'
 import showSplash from "./splash.js";
 import showMenu from './menu.js'
-import { createBoard, showBoard, initPlaceScreen, hideBoard } from './placeShips.js'
+import { createBoard, showBoardScreen, initPlaceScreen, hideBoardScreen} from './placeShips.js'
 
 export const gameflow = new GameFlow('tom');
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // await showSplash();
-  // await showMenu();
-  // await showBoard();
+  await showSplash();
+  await showMenu();
+  await showBoardScreen();
   createBoard('.placing-board');
   await initPlaceScreen();
-  await hideBoard();
+  await hideBoardScreen();
+
 })
 
 //------------------------game.js
