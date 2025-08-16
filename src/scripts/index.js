@@ -10,12 +10,12 @@ import { createBoard, showBoardScreen, initPlaceScreen, hideBoardScreen} from '.
 export const gameflow = new GameFlow('tom');
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await showSplash();
-  await showMenu();
-  await showBoardScreen();
-  createBoard('.placing-board');
-  await initPlaceScreen();
-  await hideBoardScreen();
+  // await showSplash();
+  // await showMenu();
+  // await showBoardScreen();
+  // createBoard('.placing-board');
+  // await initPlaceScreen();
+  // await hideBoardScreen();
 
 })
 

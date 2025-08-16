@@ -1,13 +1,15 @@
-html, body {
+/* =====================
+  GLOBAL STYLES
+  ===================== */
+  html, body {
   margin: 0;
   background-color: #080807;
   overflow: hidden;
 }
 
 /* =====================
-    splash screen
-  =====================
-*/
+    SCREEN BASE STYLES
+    ===================== */
 .screen {
   position: absolute;
   top: 0;
@@ -25,19 +27,22 @@ html, body {
   z-index: 100;
 }
 
+/* Active screen state */
 .active {
   opacity: 1;
   pointer-events: auto;
 }
 
+/* =====================
+    SPLASH SCREEN
+    ===================== */
 .splash__image {
   width: 40vw;
 }
-/* =====================
-    menu screen
-  =====================
-*/
 
+/* =====================
+    MENU SCREEN
+    ===================== */
 #menu {
   background-color: #010308;
   justify-content: space-between;
@@ -61,10 +66,12 @@ html, body {
   height: 400px;
 }
 
+/* Menu title styling */
 .menu__options > h1 {
   font-size: 3rem;
 }
 
+/* Colored title words */
 .word1 {
   color: rgb(129, 129, 253);
   text-shadow: 0px 0px 4px rgb(112, 112, 251);
@@ -75,6 +82,7 @@ html, body {
   text-shadow: 0px 0px 4px rgb(251, 112, 112);
 }
 
+/* Start button styles */
 .start-btn {
   appearance: none;
   background: transparent;
@@ -95,6 +103,7 @@ html, body {
   box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.219);
 }
 
+/* Logo container */
 .logo-container {
   width: 40%;
   display: flex;
@@ -108,10 +117,8 @@ html, body {
 }
 
 /* =====================
-    place ships screen
-  =====================
-*/
-
+    PLACE SHIPS SCREEN
+    ===================== */
 #place-ships {
   display: flex;
   position: absolute;
@@ -123,6 +130,7 @@ html, body {
   align-items: center;
 }
 
+/* Ships selection panel */
 .ships-to-place {
   outline: 1px solid white;
   border-radius: 10px;
@@ -138,6 +146,7 @@ html, body {
   margin-left: 15px;
 }
 
+/* Individual ship container */
 .ship {
   display: flex;
   flex-direction: column;
@@ -155,6 +164,7 @@ html, body {
   column-gap: 12px;
 }
 
+/* Ship rotation button */
 .ship__rotate {
   appearance: none;
   background: transparent;
@@ -163,6 +173,7 @@ html, body {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" stroke="black" stroke-width="0.5" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6c0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6c0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4l-4-4v3z"/></svg>'), auto;
 }
 
+/* Ship type containers */
 .boat-ship {
   width: 90px;
   height: 130px;
@@ -201,6 +212,7 @@ html, body {
   width: 250px;
 }
 
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 7px; 
   height: 7px;;
@@ -216,6 +228,7 @@ html, body {
   border-radius: 10px;
 } 
 
+/* Board placement section */
 .placing-section {
   display: flex;
   align-self: start;
@@ -228,6 +241,7 @@ html, body {
   align-items: center;
 }
 
+/* Game board grid */
 .placing-board {
   display: grid;
   grid-template-rows: repeat(10, 1fr);
@@ -242,6 +256,7 @@ html, body {
   font-size: 1.7rem;
 }
 
+/* Board tile styles */
 .tile {
   background-color: rgb(9, 44, 44);
   outline: 1px solid white;
@@ -252,6 +267,7 @@ html, body {
   background-color: rgb(19, 91, 91);
 }
 
+/* Placement preview states */
 .valid-preview {
   background-color: rgb(58, 114, 96);
 }
@@ -261,6 +277,7 @@ html, body {
   cursor: not-allowed;
 }
 
+/* Placement controls */
 .place-more {
   align-self: center;
   text-align: center;
@@ -277,6 +294,7 @@ html, body {
   margin-right: 20px;
 }
 
+/* Game start button */
 .start-game-btn {
   appearance: none;
   background: transparent;
@@ -309,11 +327,11 @@ html, body {
   color: red;
 }
 
+/* Utility buttons */
 .random-place-btn {
   appearance: none;
   background: transparent;
   color: white;
-  /* width: 220px; */
   width: 60%;
   height: 40px;
   border: 1px solid white;
@@ -326,7 +344,6 @@ html, body {
   appearance: none;
   background: transparent;
   color: white;
-  /* width: 100px; */
   width: 25%;
   height: 40px;
   border: 1px solid white;
@@ -347,6 +364,7 @@ html, body {
   background-color: #464646;
 }
 
+/* Ship rotation transformations */
 .ship__img { 
   transition: transform 0.4s ease-in-out;
   cursor: pointer;
@@ -380,6 +398,7 @@ html, body {
   transform: rotate(90deg) translateY(70px) translateX(60px);
 }
 
+/* Ship selection states */
 .chosen {
   background-color: #292828;
   opacity: 0.2;
@@ -407,25 +426,26 @@ html, body {
   padding: 5px;
 }
 
-
 .selected:hover {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="20" viewBox="0 0 60 20"><text x="16" y="14" font-family="Arial" font-size="12" fill="white">Return</text></svg>') 0 0, auto;
 }
 
+/* Dragging state */
 .sticking {
   position: fixed;
   pointer-events: none;
   transform: translateX(-20px);
 }
 
-/* ship on board preview */
+/* Ship placement indicator */
 .tile-occupied {
   background-color: rgb(165, 193, 226);
   pointer-events: none;
 }
 
-/* --- smaller screen style --- */
-
+/* =====================
+    RESPONSIVE ADJUSTMENTS
+    ===================== */
 @media (max-width: 1180px) {
   .placing-board {
     width: 300px;
@@ -437,7 +457,6 @@ html, body {
     grid-template-columns: repeat(2, auto);
   }
   
-
   .placing-section {
     display: flex;
     flex-direction: column;
@@ -448,6 +467,7 @@ html, body {
     font-size: 1.4rem;
   }
 
+  /* Ship size adjustments */
   .boat {
     width: 25px;
   }
@@ -468,6 +488,7 @@ html, body {
     width: 140px;
   }
 
+  /* Ship container adjustments */
   .boat-ship {
     width: 90px;
     height: 60px;
@@ -485,6 +506,12 @@ html, body {
   .battleship-ship {
     height: 160px;
   }
-    
 }
+/* =====================
+    game battle screen
+  =====================
+*/
 
+.game-battle {
+
+}
